@@ -27,7 +27,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   FlutterWindow window(project);
   Win32Window::Point origin(10, 10);
   Win32Window::Size size(1280, 720);
+<<<<<<< HEAD
   if (!window.Create(L"petfood", origin, size)) {
+=======
+  if (!window.Create(L"clothing_app", origin, size)) {
+>>>>>>> 233e3cafa11ec8bd3f1336a795b6c996215bbd3c
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);

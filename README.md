@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # petfood
+=======
+# clothing_app
+>>>>>>> 233e3cafa11ec8bd3f1336a795b6c996215bbd3c
 
 A new Flutter project.
 

@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 name: petfood
 description: "A new Flutter project for pet food store."
+=======
+name: clothing_app
+description: "A new Flutter project."
+>>>>>>> 233e3cafa11ec8bd3f1336a795b6c996215bbd3c
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -10,9 +15,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+<<<<<<< HEAD
   http: ^1.2.0
   supabase_flutter: ^2.5.0
   url_launcher: ^6.2.5
+=======
+  supabase_flutter: ^2.5.4
+  http: ^1.2.0
+  intl: ^0.19.0
+>>>>>>> 233e3cafa11ec8bd3f1336a795b6c996215bbd3c
 
 dev_dependencies:
   flutter_test:

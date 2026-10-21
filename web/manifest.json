@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
     "name": "petfood",
     "short_name": "petfood",
+=======
+    "name": "clothing_app",
+    "short_name": "clothing_app",
+>>>>>>> 233e3cafa11ec8bd3f1336a795b6c996215bbd3c
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
