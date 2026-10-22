@@ -26,28 +26,47 @@ jobs:
         with:
           flutter-version: '3.19.0'
           channel: stable
+          cache: true
 
-      - name: Show Flutter version
-        run: flutter --version
-
-      - name: Diagnose Android embedding
+      - name: Show environment
         run: |
-          echo "=== Main Android Manifest ==="
+          flutter --version
+          dart --version
+          java -version
+
+      - name: Check project files
+        run: |
+          echo "=== Current directory ==="
+          pwd
+          echo "=== Project files ==="
+          ls -la
+          echo "=== Android manifest ==="
           cat android/app/src/main/AndroidManifest.xml
           echo "=== MainActivity files ==="
           find android/app/src/main -type f \( -name "MainActivity.kt" -o -name "MainActivity.java" \) -print
-          echo "=== Legacy embedding references ==="
+          echo "=== Android embedding references ==="
           grep -R -n -E 'io\.flutter\.app\.FlutterActivity|io\.flutter\.app\.FlutterApplication|flutterEmbedding' android/app/src || true
 
+      - name: Validate Flutter project
+        run: flutter doctor -v
+
       - name: Install dependencies
-        run: flutter pub get
+        run: flutter pub get -v
 
       - name: Build APK Release
-        run: flutter build apk --release
+        run: flutter build apk --release -v
+
+      - name: Verify APK
+        if: success()
+        run: |
+          ls -lh build/app/outputs/flutter-apk/
+          test -f build/app/outputs/flutter-apk/app-release.apk
 
       - name: Upload APK Artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
           if-no-files-found: error
+          retention-days: 7
