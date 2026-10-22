@@ -1,8 +1,11 @@
+
 name: Build Flutter APK
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -15,14 +18,26 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v5
         with:
-          distribution: 'zulu'
+          distribution: zulu
           java-version: '17'
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.19.0'
-          channel: 'stable'
+          channel: stable
+
+      - name: Show Flutter version
+        run: flutter --version
+
+      - name: Diagnose Android embedding
+        run: |
+          echo "=== Main Android Manifest ==="
+          cat android/app/src/main/AndroidManifest.xml
+          echo "=== MainActivity files ==="
+          find android/app/src/main -type f \( -name "MainActivity.kt" -o -name "MainActivity.java" \) -print
+          echo "=== Legacy embedding references ==="
+          grep -R -n -E 'io\.flutter\.app\.FlutterActivity|io\.flutter\.app\.FlutterApplication|flutterEmbedding' android/app/src || true
 
       - name: Install dependencies
         run: flutter pub get
@@ -35,3 +50,4 @@ jobs:
         with:
           name: release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
